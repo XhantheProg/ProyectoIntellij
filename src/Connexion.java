@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connexion {
-    public Connection ger_conConnection(){
+    public Connection get_conConnection(){
         Connection conection = null;
         try{
             conection = DriverManager.getConnection("jdbc:mysql://localhost:3306/menuregis", "root", "");
