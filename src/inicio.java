@@ -82,7 +82,8 @@ class diccionario {
     }
 
     public void crearDiccionario(Scanner scanner) {
-        System.out.print("Cuántas palabras desea añadir: ");
+        DiccionarioService.crearDiccionario();
+        /*System.out.print("Cuántas palabras desea añadir: ");
         int n = scanner.nextInt();
         scanner.nextLine();
 
@@ -94,14 +95,12 @@ class diccionario {
             words.put(palabra, valor);
         }
 
-        System.out.println("Diccionario creado exitosamente.");
+        System.out.println("Diccionario creado exitosamente.");*/
     }
 
     public void mostrarDiccionario() {
         System.out.println("Diccionario:");
-        for (String palabra : words.keySet()) {
-            System.out.println(palabra + ": " + words.get(palabra));
-        }
+        DiccionarioService.listarDiccionario();
     }
 
     public void modificarDiccionario(Scanner scanner) {
