@@ -29,7 +29,7 @@ public class inicio {
     }
 
     public static void mostrarMenuInicio() {
-        System.out.println("Menú de Inicio:");
+        System.out.println("Biblioteca:");
         System.out.println("1. Literatura");
         System.out.println("2. Matemáticas");
         System.out.println("3. Salir");
@@ -39,7 +39,7 @@ public class inicio {
 
 class MenuPrincipal {
     private diccionario Dic = new diccionario();
-    private figura Fig = new figura();
+    private diccionario.Figura Fig = new diccionario.Figura();
 
     public void mostrarMenu() {
         System.out.println("Menú principal:");
@@ -83,7 +83,7 @@ class MenuPrincipal {
 
             switch (matematicasChoice) {
                 case 1:
-                    Fig.menuFiguras(scanner);
+                    Fig.menuFiguras(scanner);  // Cambiado de 'MenuFiguras' a 'menuFiguras'
                     break;
                 case 2:
                     return;
@@ -175,7 +175,7 @@ class MenuPrincipal {
 
 
 
-        class figura {
+        static class Figura {
             public void menuFiguras(Scanner scanner) {
                 boolean returnToMain = false;
                 while (!returnToMain) {
