@@ -47,47 +47,73 @@ public class DiccionarioDAO {
         }
     }
 
-    public static void borrarCliente(int id) {
-        Connexion db_conexion = new Connexion();
-        try (Connection conexion = db_conexion.get_conConnection()) {
-            PreparedStatement ps = null;
+
+
+        public static void Borrardiccionario(String palabra) {
+            Connexion db_conexion = new Connexion();
+            try (Connection conexion = db_conexion.get_conConnection()) {
+                PreparedStatement ps = null;
+                try {
+                    String query = "DELETE FROM diccionario WHERE palabra = ?";
+                    ps = conexion.prepareStatement(query);
+                    ps.setString(1, palabra);
+                    ps.executeUpdate();
+                    System.out.println("La palabra ha sido borrada");
+                } catch (SQLException e) {
+                    System.out.println(e);
+                    System.out.println("La palabra no se pudo borrar");
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+
+    public static void borrarTodo() {
+        Connexion dbConexion = new Connexion();
+        try (Connection conexion = dbConexion.get_conConnection()) {
             try {
-                String query = "DELETE FROM diccionario WHERE  id= ?";
-                ps = conexion.prepareStatement(query);
-                ps.setInt(1, id);
+                String query = "DELETE FROM diccionario";
+                PreparedStatement ps = conexion.prepareStatement(query);
                 ps.executeUpdate();
-                System.out.println("El cliente a sido borrado");
+                System.out.println("El diccionario ha sido borrado completamente.");
 
             } catch (SQLException e) {
                 System.out.println(e);
-                System.out.println("El cliente no se puedo borrar");
+                System.out.println("No se pudo borrar el diccionario.");
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
-    /*public static void actualizarCliente(Cliente cliente) {
-        Conexion db_conexion = new Conexion();
-        try (Connection conexion = db_conexion.get_conConnection()) {
-            PreparedStatement ps;
+
+
+
+    public static void modificarDiccionario(String palabra, String nuevoValor) {
+        Connexion dbConexion = new Connexion();
+        try (Connection conexion = dbConexion.get_conConnection()) {
             try {
-                String query = "UPDATE cliente SET nombre= ?, email=? , telefono= ? WHERE  id=?";
-                ps = conexion.prepareStatement(query);
-                ps.setString(1, cliente.getNombre());
-                ps.setString(2, cliente.getEmail());
-                ps.setString(3, cliente.getTelefono());
-                ps.setInt(4, cliente.getId());
-                ps.executeUpdate();
-                System.out.println("Se actualizo correctamente");
+                String query = "UPDATE diccionario SET valor = ? WHERE palabra = ?";
+                PreparedStatement ps = conexion.prepareStatement(query);
+                ps.setString(1, nuevoValor);
+                ps.setString(2, palabra);
+                int rowCount = ps.executeUpdate();
+
+                if (rowCount > 0) {
+                    System.out.println("Diccionario modificado exitosamente.");
+                } else {
+                    System.out.println("La palabra no existe en el diccionario.");
+                }
 
             } catch (SQLException e) {
                 System.out.println(e);
+                System.out.println("No se pudo modificar el diccionario.");
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-    }*/
+    }
+
 }
 
 
