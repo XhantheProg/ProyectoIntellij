@@ -11,7 +11,7 @@ public class DiccionarioService {
         System.out.println("Escribe el valor: ");
         String valor = sc.nextLine();
 
-        diccionario2 diccionario = new diccionario2();
+        getters_setters diccionario = new getters_setters();
         diccionario.setNombre(palabra);
         diccionario.setValor(valor);
 
