@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DiccionarioDAO {
-    public static void crearDiccionariodb(diccionario2 diccionario) {
+    public static void crearDiccionariodb(getters_setters diccionario) {
         Connexion db_connect = new Connexion();
         try (Connection conexion = db_connect.get_conConnection()) {
             PreparedStatement ps = null;
