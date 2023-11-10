@@ -22,5 +22,23 @@ public class DiccionarioService {
         DiccionarioDAO.mostrarDiccionario();
     }
 
+    public static void BorrarDiccionario() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Escribe la palabra a borrar: ");
+        String palabra = sc.nextLine();
+        DiccionarioDAO.Borrardiccionario(palabra);
+    }
+
+    public static void modificarDiccionario() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Palabra a modificar: ");
+        String palabra = sc.nextLine();
+
+        System.out.print("Nuevo valor: ");
+        String nuevoValor = sc.nextLine();
+
+        DiccionarioDAO.modificarDiccionario(palabra, nuevoValor);
+    }
+
 
 }
