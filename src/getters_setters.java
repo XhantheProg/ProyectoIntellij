@@ -5,6 +5,15 @@ public class getters_setters {
     Float area;
     Float perimetro;
     Float altura;
+    Float lado;
+
+    public Float getLado() {
+        return lado;
+    }
+
+    public void setLado(Float lado) {
+        this.lado = lado;
+    }
 
     public Float getArea() {
         return area;
