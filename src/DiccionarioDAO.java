@@ -11,7 +11,7 @@ public class DiccionarioDAO {
             PreparedStatement ps = null;
 
             try {
-                String query = "INSERT INTO `menuregis`.`diccionario` (`palabra`, `valor`) VALUES (?, ?)";
+                String query = "INSERT INTO `menuregis`.`diccionario` (`Nombre`, `Valor`) VALUES (?, ?)";
                 ps = conexion.prepareStatement(query);
                 ps.setString(1, diccionario.getNombre());
                 ps.setString(2, diccionario.getValor());
@@ -37,8 +37,8 @@ public class DiccionarioDAO {
 
             while (rs.next()) {
                 System.out.println("ID: " + rs.getInt("id"));
-                System.out.println("Palabra: " + rs.getString("palabra"));
-                System.out.println("Significado: " + rs.getString("valor"));
+                System.out.println("Palabra: " + rs.getString("Nombre"));
+                System.out.println("Significado: " + rs.getString("Valor"));
                 System.out.println(" *** ");
             }
 
@@ -47,14 +47,12 @@ public class DiccionarioDAO {
         }
     }
 
-
-
-        public static void Borrardiccionario(String palabra) {
+    public static void Borrardiccionario(String palabra) {
             Connexion db_conexion = new Connexion();
             try (Connection conexion = db_conexion.get_conConnection()) {
                 PreparedStatement ps = null;
                 try {
-                    String query = "DELETE FROM diccionario WHERE palabra = ?";
+                    String query = "DELETE FROM diccionario WHERE Nombre = ?";
                     ps = conexion.prepareStatement(query);
                     ps.setString(1, palabra);
                     ps.executeUpdate();
@@ -86,14 +84,11 @@ public class DiccionarioDAO {
         }
     }
 
-
-
-
     public static void modificarDiccionario(String palabra, String nuevoValor) {
         Connexion dbConexion = new Connexion();
         try (Connection conexion = dbConexion.get_conConnection()) {
             try {
-                String query = "UPDATE diccionario SET valor = ? WHERE palabra = ?";
+                String query = "UPDATE diccionario SET Valor = ? WHERE Nombre = ?";
                 PreparedStatement ps = conexion.prepareStatement(query);
                 ps.setString(1, nuevoValor);
                 ps.setString(2, palabra);
