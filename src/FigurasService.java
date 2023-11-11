@@ -2,55 +2,69 @@ import java.util.Scanner;
 
 public class FigurasService {
 
-    public static void main(String[] args) {
+    private static void añadirCuadrado() {
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            mostrarMenu();
-            int mainChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+        System.out.println("Ingrese el lado del cuadrado: ");
+        double lado = scanner.nextDouble();
+        scanner.nextLine();  // Consumir el salto de línea
 
-            switch (mainChoice) {
-                case 1:
-                    crearFigura();
-                    break;
-                case 2:
-                    // Puedes añadir más opciones según tus necesidades
-                    break;
-                case 3:
-                    System.out.println("Saliendo del programa.");
-                    System.exit(0);
-                default:
-                    System.out.println("Opción inválida. Vuelva a intentarlo.");
-            }
-        }
+        double area = Math.pow(lado, 2);
+        double perimetro = 4 * lado;
+
+        String figura = "Cuadrado - Área: " + area + ", Perímetro: " + perimetro;
+
+        // Modificación: utilizar un método para almacenar en la base de datos
+        FigurasDAO.guardarCuadradoEnDB(lado);
+
+        System.out.println("Cuadrado añadido exitosamente.");
     }
 
-    public static void mostrarMenu() {
-        System.out.println("Menú de Figuras:");
-        System.out.println("1. Calcular Cilindro");
-        System.out.println("2. Otra opción de figura");
-        System.out.println("3. Salir");
-        System.out.print("Seleccione una opción: ");
+    private static void añadirCilindro(getters_setters figuras) {
+        System.out.println("Ingrese el radio del cilindro: ");
+        double radio = figuras.getRadio();
+
+        System.out.println("Ingrese la altura del cilindro: ");
+        double altura = figuras.getAltura();
+
+
+        double area = 2 * Math.PI * radio * (radio + altura);
+        double perimetro = 2 * Math.PI * radio;
+
+        String figura = "Cilindro - Área: " + area + ", Perímetro: " + perimetro;
+        FigurasDAO.guardarFiguraEnDB(figura);
+
+        System.out.println("Cilindro añadido exitosamente.");
     }
 
-    public static void crearFigura() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Calculando Cilindro:");
+    private static void añadirCono(getters_setters figuras) {
+        System.out.println("Ingrese el radio del cono: ");
+        double radio = figuras.getRadio();
 
-        System.out.print("Ingrese el radio del cilindro: ");
-        double radio = sc.nextDouble();
-        sc.nextLine(); // Consume newline
 
-        System.out.print("Ingrese la altura del cilindro: ");
-        double altura = sc.nextDouble();
-        sc.nextLine(); // Consume newline
+        System.out.println("Ingrese la altura del cono: ");
+        double altura = figuras.getAltura();
 
-        // Puedes expandir esta parte según las necesidades de tu aplicación
-        Figuras figuras = new Figuras();
-        figuras.setRadio(radio);
-        figuras.setAltura(altura);
 
-        FigurasDAO.guardarCalculoCilindro(figuras);
+        double area = Math.PI * radio * (radio + Math.sqrt(Math.pow(altura, 2) + Math.pow(radio, 2)));
+        double perimetro = 2 * Math.PI * radio;
+
+        String figura = "Cono - Área: " + area + ", Perímetro: " + perimetro;
+        FigurasDAO.guardarFiguraEnDB(figura);
+
+        System.out.println("Cono añadido exitosamente.");
+    }
+
+    private static void añadirEsfera(getters_setters figuras) {
+        System.out.println("Ingrese el radio de la esfera: ");
+        double radio = figuras.getRadio();
+
+
+        double area = 4 * Math.PI * Math.pow(radio, 2);
+
+        String figura = "Esfera - Área: " + area;
+        FigurasDAO.guardarFiguraEnDB(figura);
+
+        System.out.println("Esfera añadida exitosamente.");
     }
 }
