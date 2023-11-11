@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.Scanner;
-
+import java.util.ArrayList;
 public class inicio {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -175,16 +174,45 @@ class MenuPrincipal {
 
 
 
-        static class Figura {
-            public void menuFiguras(Scanner scanner) {
+
+
+
+        public static class Figura {
+
+            private static ArrayList<String> figurasAñadidas = new ArrayList<>();
+
+
+            private void mostrarMenuMatematicas(Scanner scanner) {
+                while (true) {
+                    System.out.println("\nMenú de Matemáticas:");
+                    System.out.println("1. Calculadora Geométrica");
+                    System.out.println("2. Volver");
+                    System.out.print("Seleccione una opción: ");
+
+                    int matematicasChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (matematicasChoice) {
+                        case 1:
+                            menuFiguras(scanner);
+                            break;
+                        case 2:
+                            return;
+                        default:
+                            System.out.println("Opción inválida. Vuelva a intentarlo.");
+                    }
+                }
+            }
+
+            private void menuFiguras(Scanner scanner) {
                 boolean returnToMain = false;
                 while (!returnToMain) {
                     System.out.println("\nMenú de Figuras:");
-                    System.out.println("1. Cilindro");
-                    System.out.println("2. Esfera");
-                    System.out.println("3. Cono");
-                    System.out.println("4. Cuadrado");
-                    System.out.println("5. Volver al menú principal");
+                    System.out.println("1. Añadir Figura");
+                    System.out.println("2. Borrar Figura");
+                    System.out.println("3. Buscar Figura");
+                    System.out.println("4. Mostrar Figuras");
+                    System.out.println("5. Volver");
                     System.out.print("Seleccione una opción: ");
 
                     int choice = scanner.nextInt();
@@ -192,16 +220,16 @@ class MenuPrincipal {
 
                     switch (choice) {
                         case 1:
-                            calcularCilindro(scanner);
+                            añadirFigura(scanner);
                             break;
                         case 2:
-                            calcularEsfera(scanner);
+                            borrarFigura(scanner);
                             break;
                         case 3:
-                            calcularCono(scanner);
+                            buscarFigura(scanner);
                             break;
                         case 4:
-                            calcularCuadrado(scanner);
+                            mostrarFiguras();
                             break;
                         case 5:
                             returnToMain = true;
@@ -212,79 +240,191 @@ class MenuPrincipal {
                 }
             }
 
-            public void calcularCilindro(Scanner scanner) {
-                System.out.print("Ingrese el radio del cilindro: ");
+            public void añadirFigura(Scanner scanner) {
+                while (true) {
+                    System.out.println("\nCual Figura quiere añadir? :");
+                    System.out.println("1. Añadir Cuadrado");
+                    System.out.println("2. Añadir Cilindro");
+                    System.out.println("3. Añadir Cono");
+                    System.out.println("4. Añadir Esfera");
+                    System.out.println("5. Volver");
+                    System.out.print("Seleccione una opción: ");
+
+                    int matematicasChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (matematicasChoice) {
+                        case 1:
+                            añadirCuadrado(scanner);
+                            break;
+                        case 2:
+                            añadirCilindro(scanner);
+                            break;
+                        case 3:
+                            añadirCono(scanner);
+                            break;
+                        case 4:
+                            añadirEsfera(scanner);
+                            break;
+                        case 5:
+                            return;
+                        default:
+                            System.out.println("Opción inválida. Vuelva a intentarlo.");
+                    }
+                }
+            }
+
+            private void añadirCuadrado(Scanner scanner) {
+                FigurasService.;
+            }
+
+            private void añadirCilindro(Scanner scanner) {
+                System.out.println("Ingrese el radio del cilindro: ");
                 double radio = scanner.nextDouble();
                 scanner.nextLine();
 
-                System.out.print("Ingrese la altura del cilindro: ");
+                System.out.println("Ingrese la altura del cilindro: ");
                 double altura = scanner.nextDouble();
                 scanner.nextLine();
 
-                double area = 2 * Math.PI * radio * (radio + altura);
-                double perimetro = 2 * Math.PI * radio;
-
-                System.out.println("Área del cilindro: " + area);
-                System.out.println("Perímetro del cilindro: " + perimetro);
+                FigurasDAO.guardarCilindroEnDB(radio, altura);
             }
 
-            public void calcularEsfera(Scanner scanner) {
-                System.out.print("Ingrese el radio de la esfera: ");
+            private void añadirCono(Scanner scanner) {
+                System.out.println("Ingrese el radio del cono: ");
                 double radio = scanner.nextDouble();
                 scanner.nextLine();
 
-                double area = 4 * Math.PI * Math.pow(radio, 2);
-
-                System.out.println("Área de la esfera: " + area);
-            }
-
-            public void calcularCono(Scanner scanner) {
-                System.out.print("Ingrese el radio del cono: ");
-                double radio = scanner.nextDouble();
-                scanner.nextLine();
-
-                System.out.print("Ingrese la altura del cono: ");
+                System.out.println("Ingrese la altura del cono: ");
                 double altura = scanner.nextDouble();
                 scanner.nextLine();
 
-                double area = Math.PI * radio * (radio + Math.sqrt(Math.pow(altura, 2) + Math.pow(radio, 2)));
-                double perimetro = 2 * Math.PI * radio;
-
-                System.out.println("Área del cono: " + area);
-                System.out.println("Perímetro del cono: " + perimetro);
+                FigurasDAO.guardarConoEnDB(radio, altura);
             }
 
-            public void calcularCuadrado(Scanner scanner) {
-                System.out.print("Ingrese el lado del cuadrado: ");
-                double lado = scanner.nextDouble();
+            private void añadirEsfera(Scanner scanner) {
+                System.out.println("Ingrese el radio de la esfera: ");
+                double radio = scanner.nextDouble();
                 scanner.nextLine();
 
-                double area = Math.pow(lado, 2);
-                double perimetro = 4 * lado;
-
-                System.out.println("Área del cuadrado: " + area);
-                System.out.println("Perímetro del cuadrado: " + perimetro);
+                FigurasDAO.guardarEsferaEnDB(radio);
             }
 
+
+
+            private static void borrarFigura(Scanner scanner) {
+                System.out.println("Seleccione una opción para borrar:");
+                System.out.println("1. Borrar por ID");
+                System.out.println("2. Borrar todo");
+                int borrarChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (borrarChoice) {
+                    case 1:
+                        borrarPorID(scanner);
+                        break;
+                    case 2:
+                        borrarTodo();
+                        break;
+                    default:
+                        System.out.println("Opción inválida.");
+                }
+            }
+
+            private static void borrarPorID(Scanner scanner) {
+                System.out.println("Ingrese el ID de la figura a borrar: ");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+
+                if (id >= 0 && id < figurasAñadidas.size()) {
+                    String figuraBorrada = figurasAñadidas.remove(id);
+                    System.out.println("Figura borrada: " + figuraBorrada);
+                } else {
+                    System.out.println("ID inválido. No se encontró ninguna figura con ese ID.");
+                }
+            }
+
+            private static void borrarTodo() {
+                figurasAñadidas.clear();
+                System.out.println("Todas las figuras han sido borradas.");
+            }
+
+            private static void buscarFigura(Scanner scanner) {
+                System.out.println("Seleccione una opción para buscar:");
+                System.out.println("1. Buscar por figura específica");
+                System.out.println("2. Buscar por ID");
+                int buscarChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (buscarChoice) {
+                    case 1:
+                        buscarFiguraEspecifica(scanner);
+                        break;
+                    case 2:
+                        buscarPorID(scanner);
+                        break;
+                    default:
+                        System.out.println("Opción inválida.");
+                }
+            }
+
+            private static void buscarFiguraEspecifica(Scanner scanner) {
+                System.out.println("Seleccione una figura para buscar:");
+                System.out.println("1. Cuadrado");
+                System.out.println("2. Cilindro");
+                System.out.println("3. Cono");
+                System.out.println("4. Esfera");
+                int figuraChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (figuraChoice) {
+                    case 1:
+                        mostrarFigurasEspecificas("Cuadrado");
+                        break;
+                    case 2:
+                        mostrarFigurasEspecificas("Cilindro");
+                        break;
+                    case 3:
+                        mostrarFigurasEspecificas("Cono");
+                        break;
+                    case 4:
+                        mostrarFigurasEspecificas("Esfera");
+                        break;
+                    default:
+                        System.out.println("Opción inválida.");
+                }
+            }
+
+            private static void mostrarFigurasEspecificas(String figuraEspecifica) {
+                System.out.println("\nFiguras de tipo " + figuraEspecifica + ":");
+                for (String figura : figurasAñadidas) {
+                    if (figura.contains(figuraEspecifica)) {
+                        System.out.println(figura);
+                    }
+                }
+            }
+
+            private static void buscarPorID(Scanner scanner) {
+                System.out.println("Ingrese el ID de la figura a buscar: ");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+
+                if (id >= 0 && id < figurasAñadidas.size()) {
+                    String figuraEncontrada = figurasAñadidas.get(id);
+                    System.out.println("Figura encontrada: " + figuraEncontrada);
+                } else {
+                    System.out.println("ID inválido. No se encontró ninguna figura con ese ID.");
+                }
+            }
+
+            private static void mostrarFiguras() {
+                System.out.println("\nFiguras Añadidas:");
+                for (int i = 0; i < figurasAñadidas.size(); i++) {
+                    System.out.println("ID " + i + ": " + figurasAñadidas.get(i));
+                }
+            }
         }
+
     }
 }
 
-/*public class inicio {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        MenuPrincipal menuPrincipal = new MenuPrincipal();
-
-        while (true) {
-            menuPrincipal.mostrarMenu();
-            int mainChoice = scanner.nextInt();
-            scanner.nextLine();
-            menuPrincipal.elegirOpcion(mainChoice, scanner);
-        }
-    }
-}
-
-
-
-
-*/
